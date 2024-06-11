@@ -43,11 +43,11 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core)
     implementation(libs.androidx.ui.tooling.preview.android)
@@ -64,11 +64,9 @@ dependencies {
     //noinspection UseTomlInstead
     implementation("androidx.compose.material3:material3")
     // or Material Design 2
-    //noinspection UseTomlInstead
-    //implementation("androidx.compose.material:material")
+    // implementation("androidx.compose.material:material")
     // or skip Material Design and build directly on top of foundational components
-    //noinspection UseTomlInstead
-    //implementation("androidx.compose.foundation:foundation")
+    // implementation("androidx.compose.foundation:foundation")
     // or only import the main APIs for the underlying toolkit systems,
     // such as input and measurement/layout
     //noinspection UseTomlInstead
@@ -98,9 +96,8 @@ dependencies {
     //noinspection UseTomlInstead
     implementation("androidx.compose.material3:material3-window-size-class")
 
-
-       //noinspection UseTomlInstead
-       implementation("androidx.compose.runtime:runtime-livedata")
+    //noinspection UseTomlInstead
+    implementation("androidx.compose.runtime:runtime-livedata")
     // Optional - Integration with RxJava
     //noinspection UseTomlInstead
     implementation("androidx.compose.runtime:runtime-rxjava2")
