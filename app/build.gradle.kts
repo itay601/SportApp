@@ -65,10 +65,10 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     // or Material Design 2
     //noinspection UseTomlInstead
-    implementation("androidx.compose.material:material")
+    //implementation("androidx.compose.material:material")
     // or skip Material Design and build directly on top of foundational components
     //noinspection UseTomlInstead
-    implementation("androidx.compose.foundation:foundation")
+    //implementation("androidx.compose.foundation:foundation")
     // or only import the main APIs for the underlying toolkit systems,
     // such as input and measurement/layout
     //noinspection UseTomlInstead
