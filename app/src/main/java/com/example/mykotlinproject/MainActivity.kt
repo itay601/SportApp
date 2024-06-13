@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
+//
 @Composable
 fun Mypage(pageName: String, modifier: Modifier = Modifier) {
     Surface(
