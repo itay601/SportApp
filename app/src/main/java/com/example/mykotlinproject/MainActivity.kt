@@ -18,14 +18,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BasicsCodelabTheme {
-                MyApp(modifier = Modifier.fillMaxSize())
+                //Mypage(modifier = Modifier.fillMaxSize())
+                val pageType = "Home" // This can be dynamic
+                val page = PageFactory.createPage(pageType)
+                page.Content(modifier = Modifier.fillMaxSize())
             }
         }
     }
 }
 
 @Composable
-fun MyApp(modifier: Modifier = Modifier) {
+fun Mypage(modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier,
         color = MaterialTheme.colorScheme.background
@@ -33,6 +36,50 @@ fun MyApp(modifier: Modifier = Modifier) {
         Greeting("Android")
     }
 }
+interface Page {
+    @Composable
+    fun Content(modifier: Modifier)
+}
+class HomePage : Page {
+    @Preview(showBackground = true)
+    @Composable
+    override fun Content(modifier: Modifier) {
+        Surface(
+            modifier = modifier,
+            color = MaterialTheme.colorScheme.background
+        ) {
+            Text(text = "Home Page", modifier = Modifier.padding(16.dp))
+        }
+    }
+}
+
+class ProfilePage : Page {
+    @Preview(showBackground = true)
+    @Composable
+    override fun Content(modifier: Modifier) {
+        BasicsCodelabTheme {
+            Surface(
+                modifier = modifier,
+                color = MaterialTheme.colorScheme.background
+            ) {
+                Text(text = "Profile Page", modifier = Modifier.padding(16.dp))
+            }
+        }
+    }
+}
+
+object PageFactory {
+    fun createPage(pageType: String): Page {
+        return when (pageType) {
+            "Home" -> HomePage()
+            "Profile" -> ProfilePage()
+            else -> throw IllegalArgumentException("Unknown page type")
+        }
+    }
+}
+
+
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -48,7 +95,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     BasicsCodelabTheme {
-        MyApp()
+        Mypage()
     }
 }
 
@@ -59,5 +106,5 @@ fun BasicsCodelabTheme(content: @Composable () -> Unit) {
         typography = MaterialTheme.typography,
         shapes = MaterialTheme.shapes,
         content = content
-    )
+   )
 }
