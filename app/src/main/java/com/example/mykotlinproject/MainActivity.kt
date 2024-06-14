@@ -67,7 +67,7 @@ fun HomePage(modifier: Modifier = Modifier) {
     ) {
         Text(
             text = "Home Page",
-            modifier = Modifier.padding(24.dp)
+            modifier = modifier.padding(24.dp)
         )
     }
 }
