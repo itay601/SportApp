@@ -102,4 +102,7 @@ dependencies {
     // Optional - Integration with RxJava
     //noinspection UseTomlInstead
     implementation("androidx.compose.runtime:runtime-rxjava2")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("io.arrow-kt:arrow-core:1.1.3")
 }
