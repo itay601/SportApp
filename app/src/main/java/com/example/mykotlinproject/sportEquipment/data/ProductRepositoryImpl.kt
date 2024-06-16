@@ -4,9 +4,10 @@ import arrow.core.Either
 import com.example.mykotlinproject.sportEquipment.domain.NetworkError
 import com.example.mykotlinproject.sportEquipment.domain.Product
 import com.example.mykotlinproject.sportEquipment.domain.ProductsRepository
+import javax.inject.Inject
 
 
-class ProductRepositoryImpl constructor(
+class ProductRepositoryImpl @Inject constructor(
     private val productApi:ProductApi
 
 ) : ProductsRepository{

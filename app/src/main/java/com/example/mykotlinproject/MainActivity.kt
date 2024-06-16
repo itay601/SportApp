@@ -27,7 +27,10 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
+import com.example.mykotlinproject.sportEquipment.presentation.ProductScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,9 +54,10 @@ fun Mypage(pageName: String, modifier: Modifier = Modifier) {
         color = MaterialTheme.colorScheme.background
     ) {
         when (pageName) {
-            "greet" -> Greeting("Android")
             "home" -> HomePage()
+            "product" -> ProductScreen()
             "profile" -> Profile()
+            "GreetingPreview" -> GreetingPreview()
             else -> throw IllegalArgumentException("Unknown page type")
         }
     }
@@ -115,15 +119,21 @@ fun BottomNavigationBar(currentPage: String, onPageSelected: (String) -> Unit) {
             icon = { Icon(Icons.Default.Home, contentDescription = null) }
         )
         NavigationBarItem(
-            selected = currentPage == "greet",
-            onClick = { onPageSelected("greet") },
-            label = { Text("Greet") },
+            selected = currentPage == "product",
+            onClick = { onPageSelected("product") },
+            label = { Text("product") },
             icon = { Icon(Icons.Default.Face, contentDescription = null) }
         )
         NavigationBarItem(
             selected = currentPage == "profile",
             onClick = { onPageSelected("profile") },
             label = { Text("Profile") },
+            icon = { Icon(Icons.Default.Person, contentDescription = null) }
+        )
+        NavigationBarItem(
+            selected = currentPage == "GreetingPreview",
+            onClick = { onPageSelected("GreetingPreview") },
+            label = { Text("GreetingPreview") },
             icon = { Icon(Icons.Default.Person, contentDescription = null) }
         )
     }
