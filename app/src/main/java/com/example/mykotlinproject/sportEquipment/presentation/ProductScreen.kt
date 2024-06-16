@@ -36,7 +36,7 @@ fun ProductContent(
             columns = StaggeredGridCells.Fixed(2),
             modifier = Modifier.padding(top = it.calculateTopPadding())){
             items(state.prodacts){  product ->
-
+                ProductCart(product = product)
             }
 
         }
