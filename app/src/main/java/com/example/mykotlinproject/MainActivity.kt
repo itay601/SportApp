@@ -2,7 +2,7 @@ package com.example.mykotlinproject
 
 import android.graphics.drawable.Icon
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 
@@ -27,7 +27,13 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.mykotlinproject.sportEquipment.presentation.ProductScreen
+import com.example.mykotlinproject.util.Event
+import com.example.mykotlinproject.util.EventBus
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,16 +42,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         var page = mutableStateOf("home") // Changed to mutableStateOf for state management
         setContent {
+            /*
+                val lifecycle = LocalLifecycleOwner.current.lifecycle
+                LaunchedEffect(key1 = lifecycle) {
+                    repeatOnLifecycle(state=Lifecycle.State.STARTED){
+                        EventBus.events.collect{event->
+                            if (event is Event.Toast ){
+                                Toast.makeText(this@MainActivity,event.message,Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }*/
             BasicsCodelabTheme {
                 Scaffold(
                     bottomBar = { BottomNavigationBar(page.value) { page.value = it } }
                 ) {
-                    Mypage(page.value, modifier = Modifier.fillMaxSize().padding(it))
+                    Mypage(
+                        page.value, modifier = Modifier
+                            .fillMaxSize()
+                            .padding(it)
+                    )
                 }
+
             }
         }
     }
 }
+
+
 //
 @Composable
 fun Mypage(pageName: String, modifier: Modifier = Modifier) {
@@ -76,6 +100,36 @@ fun HomePage(modifier: Modifier = Modifier) {
     }
 }
 
+//@Preview(showBackground = true)
+@Composable
+fun BottomNavigationBar(currentPage: String, onPageSelected: (String) -> Unit) {
+    NavigationBar{
+        NavigationBarItem(
+            selected = currentPage == "home",
+            onClick = { onPageSelected("home") },
+            label = { Text("Home") },
+            icon = { Icon(Icons.Default.Home, contentDescription = null) }
+        )
+        NavigationBarItem(
+            selected = currentPage == "product",
+            onClick = { onPageSelected("product") },
+            label = { Text("product") },
+            icon = { Icon(Icons.Default.Face, contentDescription = null) }
+        )
+        NavigationBarItem(
+            selected = currentPage == "profile",
+            onClick = { onPageSelected("profile") },
+            label = { Text("Profile") },
+            icon = { Icon(Icons.Default.Person, contentDescription = null) }
+        )
+        NavigationBarItem(
+            selected = currentPage == "GreetingPreview",
+            onClick = { onPageSelected("GreetingPreview") },
+            label = { Text("GreetingPreview") },
+            icon = { Icon(Icons.Default.Person, contentDescription = null) }
+        )
+    }
+}
 @Composable
 fun Profile(modifier: Modifier = Modifier) { // Fixed function name to start with an uppercase
     Surface(color = MaterialTheme.colorScheme.primary) {
@@ -108,36 +162,7 @@ fun GreetingPreview() {
         }
     }
 }
-//@Preview(showBackground = true)
-@Composable
-fun BottomNavigationBar(currentPage: String, onPageSelected: (String) -> Unit) {
-    NavigationBar{
-        NavigationBarItem(
-            selected = currentPage == "home",
-            onClick = { onPageSelected("home") },
-            label = { Text("Home") },
-            icon = { Icon(Icons.Default.Home, contentDescription = null) }
-        )
-        NavigationBarItem(
-            selected = currentPage == "product",
-            onClick = { onPageSelected("product") },
-            label = { Text("product") },
-            icon = { Icon(Icons.Default.Face, contentDescription = null) }
-        )
-        NavigationBarItem(
-            selected = currentPage == "profile",
-            onClick = { onPageSelected("profile") },
-            label = { Text("Profile") },
-            icon = { Icon(Icons.Default.Person, contentDescription = null) }
-        )
-        NavigationBarItem(
-            selected = currentPage == "GreetingPreview",
-            onClick = { onPageSelected("GreetingPreview") },
-            label = { Text("GreetingPreview") },
-            icon = { Icon(Icons.Default.Person, contentDescription = null) }
-        )
-    }
-}
+
 
 
 @Composable
