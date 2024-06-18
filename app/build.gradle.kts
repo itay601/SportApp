@@ -118,8 +118,5 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.0")
     implementation("androidx.activity:activity-compose:1.7.0")
-// Coroutines dependencies
-// implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
-// implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
-// implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0"
+
 }

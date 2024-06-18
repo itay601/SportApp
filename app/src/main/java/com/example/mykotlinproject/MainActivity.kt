@@ -31,6 +31,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.mykotlinproject.blog.presentaion.BlogScreen
 import com.example.mykotlinproject.sportEquipment.presentation.ProductScreen
 import com.example.mykotlinproject.util.Event
 import com.example.mykotlinproject.util.EventBus
@@ -42,17 +43,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         var page = mutableStateOf("home") // Changed to mutableStateOf for state management
         setContent {
-            /*
-                val lifecycle = LocalLifecycleOwner.current.lifecycle
-                LaunchedEffect(key1 = lifecycle) {
-                    repeatOnLifecycle(state=Lifecycle.State.STARTED){
-                        EventBus.events.collect{event->
-                            if (event is Event.Toast ){
-                                Toast.makeText(this@MainActivity,event.message,Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
-                }*/
             BasicsCodelabTheme {
                 Scaffold(
                     bottomBar = { BottomNavigationBar(page.value) { page.value = it } }
@@ -79,7 +69,7 @@ fun Mypage(pageName: String, modifier: Modifier = Modifier) {
     ) {
         when (pageName) {
             "home" -> HomePage()
-            "product" -> ProductScreen()
+            "BlogScreen" -> BlogScreen()
             "profile" -> Profile()
             "GreetingPreview" -> GreetingPreview()
             else -> throw IllegalArgumentException("Unknown page type")
