@@ -101,9 +101,9 @@ fun BottomNavigationBar(currentPage: String, onPageSelected: (String) -> Unit) {
             icon = { Icon(Icons.Default.Home, contentDescription = null) }
         )
         NavigationBarItem(
-            selected = currentPage == "product",
-            onClick = { onPageSelected("product") },
-            label = { Text("product") },
+            selected = currentPage == "BlogScreen",
+            onClick = { onPageSelected("BlogScreen") },
+            label = { Text("BlogScreen") },
             icon = { Icon(Icons.Default.Face, contentDescription = null) }
         )
         NavigationBarItem(
