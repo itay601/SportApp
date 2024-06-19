@@ -32,10 +32,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.mykotlinproject.blog.presentaion.BlogScreen
-import com.example.mykotlinproject.sportEquipment.presentation.ProductScreen
 import com.example.mykotlinproject.util.Event
 import com.example.mykotlinproject.util.EventBus
 import dagger.hilt.android.AndroidEntryPoint
+
+
+
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -60,6 +63,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 
+
 //
 @Composable
 fun Mypage(pageName: String, modifier: Modifier = Modifier) {
@@ -77,6 +81,7 @@ fun Mypage(pageName: String, modifier: Modifier = Modifier) {
     }
 }
 
+
 @Composable
 fun HomePage(modifier: Modifier = Modifier) {
     Surface(
@@ -90,7 +95,8 @@ fun HomePage(modifier: Modifier = Modifier) {
     }
 }
 
-//@Preview(showBackground = true)
+
+
 @Composable
 fun BottomNavigationBar(currentPage: String, onPageSelected: (String) -> Unit) {
     NavigationBar{
@@ -120,6 +126,8 @@ fun BottomNavigationBar(currentPage: String, onPageSelected: (String) -> Unit) {
         )
     }
 }
+
+
 @Composable
 fun Profile(modifier: Modifier = Modifier) { // Fixed function name to start with an uppercase
     Surface(color = MaterialTheme.colorScheme.primary) {
