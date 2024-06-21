@@ -1,17 +1,19 @@
 package com.example.mykotlinproject
 
-import android.graphics.drawable.Icon
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -21,26 +23,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Icon
-import androidx.compose.runtime.LaunchedEffect
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.mykotlinproject.blog.presentaion.BlogScreen
-import com.example.mykotlinproject.util.Event
-import com.example.mykotlinproject.util.EventBus
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.mykotlinproject.home.HomePage
 
 
-
-
-
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,20 +64,6 @@ fun Mypage(pageName: String, modifier: Modifier = Modifier) {
             "GreetingPreview" -> GreetingPreview()
             else -> throw IllegalArgumentException("Unknown page type")
         }
-    }
-}
-
-
-@Composable
-fun HomePage(modifier: Modifier = Modifier) {
-    Surface(
-        modifier = Modifier,
-        color = MaterialTheme.colorScheme.background,
-    ) {
-        Text(
-            text = "Home Page",
-            modifier = modifier.padding(24.dp)
-        )
     }
 }
 
