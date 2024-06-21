@@ -1,4 +1,4 @@
-package com.example.mykotlinproject.home
+package com.example.mykotlinproject.home.presentaion
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

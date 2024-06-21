@@ -1,5 +1,6 @@
 package com.example.mykotlinproject
 
+import SportTracerPage
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +11,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Article
 import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Fastfood
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Sports
+import androidx.compose.material.icons.filled.SportsMartialArts
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -23,8 +29,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.mykotlinproject.blog.presentaion.BlogScreen
-import com.example.mykotlinproject.home.HomePage
+import com.example.mykotlinproject.blog.presentaion.BlogPage
+import com.example.mykotlinproject.home.presentaion.HomePage
+import com.example.mykotlinproject.kalories.presantion.FoodListPage
+import com.example.mykotlinproject.sportEquipment.presentation.EquipmentListPage
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,7 +50,6 @@ class MainActivity : AppCompatActivity() {
                             .padding(it)
                     )
                 }
-
             }
         }
     }
@@ -59,9 +66,10 @@ fun Mypage(pageName: String, modifier: Modifier = Modifier) {
     ) {
         when (pageName) {
             "home" -> HomePage()
-            "BlogScreen" -> BlogScreen()
-            "profile" -> Profile()
-            "GreetingPreview" -> GreetingPreview()
+            "BlogScreen" -> BlogPage()
+            "Food-kal" -> FoodListPage()
+            "Sport-Equips" -> EquipmentListPage()
+            "Tracer" -> SportTracerPage()
             else -> throw IllegalArgumentException("Unknown page type")
         }
     }
@@ -71,65 +79,37 @@ fun Mypage(pageName: String, modifier: Modifier = Modifier) {
 
 @Composable
 fun BottomNavigationBar(currentPage: String, onPageSelected: (String) -> Unit) {
-    NavigationBar{
+    NavigationBar {
         NavigationBarItem(
             selected = currentPage == "home",
             onClick = { onPageSelected("home") },
             label = { Text("Home") },
-            icon = { Icon(Icons.Default.Home, contentDescription = null) }
+            icon = { Icon(Icons.Default.Home, contentDescription = "Home") }
         )
         NavigationBarItem(
             selected = currentPage == "BlogScreen",
             onClick = { onPageSelected("BlogScreen") },
-            label = { Text("BlogScreen") },
-            icon = { Icon(Icons.Default.Face, contentDescription = null) }
+            label = { Text("Blog") },
+            icon = { Icon(Icons.Default.SportsMartialArts, contentDescription = "Blog") }
         )
         NavigationBarItem(
-            selected = currentPage == "profile",
-            onClick = { onPageSelected("profile") },
-            label = { Text("Profile") },
-            icon = { Icon(Icons.Default.Person, contentDescription = null) }
+            selected = currentPage == "Food-kal",
+            onClick = { onPageSelected("Food-kal") },
+            label = { Text("Food") },
+            icon = { Icon(Icons.Default.Fastfood, contentDescription = "Food Calories") }
         )
         NavigationBarItem(
-            selected = currentPage == "GreetingPreview",
-            onClick = { onPageSelected("GreetingPreview") },
-            label = { Text("GreetingPreview") },
-            icon = { Icon(Icons.Default.Person, contentDescription = null) }
+            selected = currentPage == "Sport-Equips",
+            onClick = { onPageSelected("Sport-Equips") },
+            label = { Text("Equipment") },
+            icon = { Icon(Icons.Default.Sports, contentDescription = "Sport Equipment") }
         )
-    }
-}
-
-
-@Composable
-fun Profile(modifier: Modifier = Modifier) { // Fixed function name to start with an uppercase
-    Surface(color = MaterialTheme.colorScheme.primary) {
-        Text(
-            text = "Profile",
-            modifier = modifier.padding(24.dp)
+        NavigationBarItem(
+            selected = currentPage == "Tracer",
+            onClick = { onPageSelected("Tracer") },
+            label = { Text("Tracer") },
+            icon = { Icon(Icons.Default.LocationOn, contentDescription = "Tracer") }
         )
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Surface(color = MaterialTheme.colorScheme.primary) {
-        Text(
-            text = "Hello $name!",
-            modifier = modifier.padding(24.dp)
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BasicsCodelabTheme {
-        Column {
-            Greeting("new member")
-            Profile()
-            HomePage()
-            //BottomNavigationBar()
-        }
     }
 }
 
