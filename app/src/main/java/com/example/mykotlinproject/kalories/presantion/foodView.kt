@@ -28,21 +28,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.mykotlinproject.kalories.data.FoodNutrition
+import com.example.mykotlinproject.kalories.domain.FoodViewModel
 
-data class FoodItem(val name: String, val calories: Int)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = false)
 @Composable
-fun FoodListPage() {
-    val foodList = remember {
-        listOf(
-            FoodItem("Apple", 52),
-            FoodItem("Banana", 96),
-            FoodItem("Chicken Breast", 165),
-            FoodItem("Broccoli", 55)
-        )
-    }
+fun FoodListPage(foodViewModel: FoodViewModel = viewModel()) {
+    val foodList = remember { foodViewModel.foodList }
+    //println(foodList.javaClass.typeName)
+    //Log.d("foodListType", "$foodList")
 
     Column(
         modifier = Modifier
@@ -68,13 +65,11 @@ fun FoodListPage() {
 }
 
 @Composable
-fun FoodCard(food: FoodItem) {
+fun FoodCard(food: FoodNutrition) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-        .background( Color.White)
-        //elevation = 4.dp
     ) {
         Row(
             modifier = Modifier
@@ -91,8 +86,16 @@ fun FoodCard(food: FoodItem) {
             Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(text = food.name, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text(text = "${food.calories} kcal per 100g", fontSize = 16.sp, color = Color.Gray)
+                Text(text = "${food.fiber_g} g fiber per 100g", fontSize = 16.sp, color = Color.Gray)
+                Text(text = "${food.sugar_g} g sugar per 100g", fontSize = 16.sp, color = Color.Gray)
+                Text(text = "${food.sodium_mg} mg sodium per 100g", fontSize = 16.sp, color = Color.Gray)
+                Text(text = "${food.fat_total_g} g fat per 100g", fontSize = 16.sp, color = Color.Gray)
+                Text(text = "${food.carbohydrates_total_g} g carbohydrates per 100g", fontSize = 16.sp, color = Color.Gray)
+                Text(text = "${food.cholesterol_mg} mg cholesterol per 100g", fontSize = 16.sp, color = Color.Gray)
+                Text(text = "${food.fat_saturated_g} g saturated fat per 100g", fontSize = 16.sp, color = Color.Gray)
+                Text(text = "${food.potassium_mg} mg potassium per 100g", fontSize = 16.sp, color = Color.Gray)
             }
         }
     }
 }
+

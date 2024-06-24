@@ -116,10 +116,10 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.compose.ui:ui:1.4.3")
-    implementation("androidx.compose.material3:material3:1.0.1")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.0")
-    implementation("androidx.activity:activity-compose:1.7.0")
+    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.6.8")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
+    implementation(libs.androidx.activity.compose.v170)
     implementation("com.google.maps.android:maps-compose:2.7.2")
 
     implementation("io.ktor:ktor-client-core:2.3.2")
@@ -127,10 +127,11 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation:2.3.2")
     implementation("io.ktor:ktor-client-logging:2.3.2")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
     implementation("com.android.volley:volley:1.2.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation(libs.jetbrains.kotlin.stdlib)
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:")
+    implementation("com.google.code.gson:gson:2.10.1")
     
 }

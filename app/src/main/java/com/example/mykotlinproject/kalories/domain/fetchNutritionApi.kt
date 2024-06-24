@@ -1,19 +1,22 @@
 package com.example.mykotlinproject.kalories.domain
 
-import android.annotation.SuppressLint
+import androidx.compose.runtime.mutableStateListOf
+import androidx.lifecycle.ViewModel
 import com.example.mykotlinproject.kalories.data.FoodNutrition
-import kotlinx.serialization.json.Json
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.net.HttpURLConnection
 import java.net.URL
 
-class FetchApi {
+
+open class FetchApi  {
 
     private val YOUR_API_KEY = "qiYla7B0GBqPSrhi5vV9Vg==u8PHD6wfrKrM8Vzc"
-    var response :String = ""
+    private lateinit var response :String
 
 
-    @SuppressLint("NewApi")
-    fun fetchFoodApi(query_: String = "1lb hamburger and fries"): String {
+
+    fun fetchFoodApi(query_: String = "1lb hamburger and fries") {
         val YOUR_API_KEY = this.YOUR_API_KEY
         val query = query_
         val apiUrl = "https://api.api-ninjas.com/v1/nutrition?query=${
@@ -41,9 +44,11 @@ class FetchApi {
                     val response = connection.inputStream.bufferedReader().use { it.readText() }
                     println(response)
                     this.response = response
+                    //Log.d("response",this.response)
                     success = true
-                    return this.response
-                } else {
+                }
+                else
+                {
                     val errorResponse =
                         connection.errorStream?.bufferedReader()?.use { it.readText() }
                             ?: "No error details"
@@ -62,38 +67,46 @@ class FetchApi {
             }
             attempt++
         }
-        val fail = "fail"
 
         if (!success) {
             println("Failed to fetch data after $maxRetries attempts")
-
-            return fail
         }
-        return fail
-    }
-    fun jsonNutritionToDataClass(jsonString: String): List<FoodNutrition> {
-        val json = Json { ignoreUnknownKeys = true }
-        val foodList = json.decodeFromString<List<FoodNutrition>>(jsonString)
-
-        foodList.forEach { println(it) }
-        return foodList
     }
 
-
-
+    fun jsonStringToList(): List<FoodNutrition> {
+        val gson = Gson()
+        val listType = object : TypeToken<List<FoodNutrition>>() {}.type
+        return gson.fromJson(this.response, listType)
+    }
 }
+
+
+
+
+class FoodViewModel : ViewModel() {
+    private val fetchApi = FetchApi()
+    var foodList = mutableStateListOf<FoodNutrition>()
+
+    init {
+        fetchFood()
+    }
+
+
+    private fun fetchFood() {
+        fetchApi.fetchFoodApi()
+        foodList.addAll(fetchApi.jsonStringToList())
+    }
+}
+
+
 
 
 fun main() {
     val fetchApi = FetchApi()
-    val response = fetchApi.fetchFoodApi()
-    var i=0
-    val length =response.length
-    while (i<length){
-        println(response[i])
-        i++
-    }
-    //val a = fetchApi.jsonNutritionToDataClass(response)
+    fetchApi.fetchFoodApi()
+    val food = fetchApi.jsonStringToList()
+    println(food)
+
 
 }
 

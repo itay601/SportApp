@@ -12,6 +12,5 @@ data class FoodNutrition(
     val cholesterol_mg: Int,
     val carbohydrates_total_g: Double,
     val fiber_g: Double,
-    val sugar_g: Double
+    val sugar_g: Double,
 )
-
