@@ -1,5 +1,6 @@
 package com.example.mykotlinproject.kalories.presantion
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,7 +21,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,16 +33,29 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mykotlinproject.kalories.data.FoodNutrition
-import com.example.mykotlinproject.kalories.domain.FoodViewModel
+import com.example.mykotlinproject.kalories.domain.FetchApi
+import java.lang.reflect.TypeVariable
 
+@Composable
+fun FoodListPageMain(modifier: Modifier = Modifier){
+    FoodListPage()
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = false)
 @Composable
-fun FoodListPage(foodViewModel: FoodViewModel = viewModel()) {
-    val foodList = remember { foodViewModel.foodList }
-    //println(foodList.javaClass.typeName)
-    //Log.d("foodListType", "$foodList")
+fun FoodListPage(foodViewModel: FetchApi = viewModel()) {
+
+    val yourList by foodViewModel.yourList.observeAsState(initial = emptyList())
+
+    // Call fetchDataFromApi in appropriate lifecycle event like onActive or onComposition
+    LaunchedEffect(Unit) {
+        foodViewModel.fetchFoodApi()
+        Log.d("apicall","worked")
+        foodViewModel.jsonStringToList()
+        Log.d("jsontostring","worked")
+
+    }
 
     Column(
         modifier = Modifier
@@ -57,7 +73,7 @@ fun FoodListPage(foodViewModel: FoodViewModel = viewModel()) {
         Spacer(modifier = Modifier.height(16.dp))
 
         LazyColumn {
-            items(foodList) { food ->
+            items(yourList) { food ->
                 FoodCard(food)
             }
         }

@@ -1,20 +1,36 @@
 package com.example.mykotlinproject.kalories.domain
 
-import androidx.compose.runtime.mutableStateListOf
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mykotlinproject.kalories.data.FoodNutrition
 import com.google.gson.Gson
+//import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import java.net.HttpURLConnection
 import java.net.URL
 
 
-open class FetchApi  {
+//import androidx.lifecycle.viewModelScope
+
+//import kotlinx.coroutines.Dispatchers
+//import kotlinx.coroutines.launch
+//import kotlinx.coroutines.withContext
+
+
+
+open class FetchApi : ViewModel () {
 
     private val YOUR_API_KEY = "qiYla7B0GBqPSrhi5vV9Vg==u8PHD6wfrKrM8Vzc"
-    private lateinit var response :String
+    private var response: String? = null
 
+    // MutableLiveData for your list
+    private val _yourList = MutableLiveData<List<FoodNutrition>>()
 
+    // Exposed as LiveData
+    val yourList: LiveData<List<FoodNutrition>>
+        get() = _yourList
 
     fun fetchFoodApi(query_: String = "1lb hamburger and fries") {
         val YOUR_API_KEY = this.YOUR_API_KEY
@@ -44,11 +60,9 @@ open class FetchApi  {
                     val response = connection.inputStream.bufferedReader().use { it.readText() }
                     println(response)
                     this.response = response
-                    //Log.d("response",this.response)
+                    Log.d("response","${this.response}")
                     success = true
-                }
-                else
-                {
+                } else {
                     val errorResponse =
                         connection.errorStream?.bufferedReader()?.use { it.readText() }
                             ?: "No error details"
@@ -76,39 +90,22 @@ open class FetchApi  {
     fun jsonStringToList(): List<FoodNutrition> {
         val gson = Gson()
         val listType = object : TypeToken<List<FoodNutrition>>() {}.type
+        _yourList.value = gson.fromJson(this.response, listType)
+        println(_yourList)
         return gson.fromJson(this.response, listType)
     }
-}
-
-
-
-
-class FoodViewModel : ViewModel() {
-    private val fetchApi = FetchApi()
-    var foodList = mutableStateListOf<FoodNutrition>()
-
-    init {
-        fetchFood()
-    }
-
-
-    private fun fetchFood() {
-        fetchApi.fetchFoodApi()
-        foodList.addAll(fetchApi.jsonStringToList())
-    }
-}
-
-
-
-
-fun main() {
-    val fetchApi = FetchApi()
-    fetchApi.fetchFoodApi()
-    val food = fetchApi.jsonStringToList()
-    println(food)
-
 
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.mykotlinproject.blog.presentaion.BlogPage
 import com.example.mykotlinproject.home.presentaion.HomePage
+import com.example.mykotlinproject.kalories.domain.FetchApi
 import com.example.mykotlinproject.kalories.presantion.FoodListPage
 import com.example.mykotlinproject.sportEquipment.presentation.EquipmentListPage
 
@@ -67,7 +68,7 @@ fun Mypage(pageName: String, modifier: Modifier = Modifier) {
         when (pageName) {
             "home" -> HomePage()
             "BlogScreen" -> BlogPage()
-            "Food-kal" -> FoodListPage()
+            "Food-kal" -> FoodListPage(foodViewModel = FetchApi())
             "Sport-Equips" -> EquipmentListPage()
             "Tracer" -> SportTracerPage()
             else -> throw IllegalArgumentException("Unknown page type")
@@ -95,7 +96,7 @@ fun BottomNavigationBar(currentPage: String, onPageSelected: (String) -> Unit) {
         NavigationBarItem(
             selected = currentPage == "Food-kal",
             onClick = { onPageSelected("Food-kal") },
-            label = { Text("Food") },
+            label = { Text("Food-kal") },
             icon = { Icon(Icons.Default.Fastfood, contentDescription = "Food Calories") }
         )
         NavigationBarItem(
