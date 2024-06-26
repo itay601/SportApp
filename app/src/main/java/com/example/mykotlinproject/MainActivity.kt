@@ -38,7 +38,7 @@ import com.example.mykotlinproject.sportEquipment.presentation.EquipmentListPage
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.  onCreate(savedInstanceState)
         var page = mutableStateOf("home") // Changed to mutableStateOf for state management
         setContent {
             BasicsCodelabTheme {
@@ -68,7 +68,7 @@ fun Mypage(pageName: String, modifier: Modifier = Modifier) {
         when (pageName) {
             "home" -> HomePage()
             "BlogScreen" -> BlogPage()
-            "Food-kal" -> FoodListPage(foodViewModel = FetchApi())
+            "Food-kal" -> FoodListPage()
             "Sport-Equips" -> EquipmentListPage()
             "Tracer" -> SportTracerPage()
             else -> throw IllegalArgumentException("Unknown page type")

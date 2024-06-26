@@ -1,26 +1,20 @@
 package com.example.mykotlinproject.kalories.domain
 
+
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mykotlinproject.kalories.data.FoodNutrition
 import com.google.gson.Gson
-//import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URL
 
 
-//import androidx.lifecycle.viewModelScope
-
-//import kotlinx.coroutines.Dispatchers
-//import kotlinx.coroutines.launch
-//import kotlinx.coroutines.withContext
-
-
-
-open class FetchApi : ViewModel () {
+open class FetchApi : ViewModel() {
 
     private val YOUR_API_KEY = "qiYla7B0GBqPSrhi5vV9Vg==u8PHD6wfrKrM8Vzc"
     private var response: String? = null
@@ -32,7 +26,8 @@ open class FetchApi : ViewModel () {
     val yourList: LiveData<List<FoodNutrition>>
         get() = _yourList
 
-    fun fetchFoodApi(query_: String = "1lb hamburger and fries") {
+    suspend fun fetchFoodApi(query_: String = "1lb hamburger and fries") {
+
         val YOUR_API_KEY = this.YOUR_API_KEY
         val query = query_
         val apiUrl = "https://api.api-ninjas.com/v1/nutrition?query=${
@@ -49,18 +44,22 @@ open class FetchApi : ViewModel () {
 
         while (attempt < maxRetries && !success) {
             var connection: HttpURLConnection? = null
+            Log.d("apifetch","before try fetch api")
             try {
                 val url = URL(apiUrl)
-                connection = url.openConnection() as HttpURLConnection
+                connection = withContext(Dispatchers.IO) {
+                    url.openConnection()
+                } as HttpURLConnection
                 connection.requestMethod = "GET"
                 connection.setRequestProperty("X-Api-Key", YOUR_API_KEY)
 
                 val responseCode = connection.responseCode
+                Log.d("apifetch","response code $responseCode")
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     val response = connection.inputStream.bufferedReader().use { it.readText() }
                     println(response)
                     this.response = response
-                    Log.d("response","${this.response}")
+                    Log.d("response","$this.response")
                     success = true
                 } else {
                     val errorResponse =
@@ -88,18 +87,20 @@ open class FetchApi : ViewModel () {
     }
 
     fun jsonStringToList(): List<FoodNutrition> {
+        Log.d("loginfunjson","entered to fun json")
         val gson = Gson()
         val listType = object : TypeToken<List<FoodNutrition>>() {}.type
-        _yourList.value = gson.fromJson(this.response, listType)
-        println(_yourList)
-        return gson.fromJson(this.response, listType)
+        if (this.response!=null){
+            _yourList.value = gson.fromJson(this.response, listType)
+            println(_yourList)
+            return gson.fromJson(this.response, listType)
+        }
+        else{
+            return emptyList()
+        }
     }
 
 }
-
-
-
-
 
 
 

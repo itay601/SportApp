@@ -1,5 +1,6 @@
 package com.example.mykotlinproject.kalories.presantion
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -34,13 +35,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mykotlinproject.kalories.data.FoodNutrition
 import com.example.mykotlinproject.kalories.domain.FetchApi
-import java.lang.reflect.TypeVariable
 
-@Composable
-fun FoodListPageMain(modifier: Modifier = Modifier){
-    FoodListPage()
-}
-
+@SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = false)
 @Composable
@@ -48,7 +44,7 @@ fun FoodListPage(foodViewModel: FetchApi = viewModel()) {
 
     val yourList by foodViewModel.yourList.observeAsState(initial = emptyList())
 
-    // Call fetchDataFromApi in appropriate lifecycle event like onActive or onComposition
+    //Call fetchDataFromApi in appropriate lifecycle event like onActive or onComposition
     LaunchedEffect(Unit) {
         foodViewModel.fetchFoodApi()
         Log.d("apicall","worked")
@@ -56,6 +52,8 @@ fun FoodListPage(foodViewModel: FetchApi = viewModel()) {
         Log.d("jsontostring","worked")
 
     }
+//    CoroutineScope(Dispatchers.IO).launch {
+//}
 
     Column(
         modifier = Modifier
