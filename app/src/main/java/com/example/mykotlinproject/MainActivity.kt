@@ -1,6 +1,7 @@
 package com.example.mykotlinproject
 
-import SportTracerPage
+//import SportTracerPage
+import com.example.mykotlinproject.sportTracer.presentaion.SportTracerPage2
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -70,7 +71,7 @@ fun Mypage(pageName: String, modifier: Modifier = Modifier) {
             "BlogScreen" -> BlogPage()
             "Food-kal" -> FoodListPage()
             "Sport-Equips" -> EquipmentListPage()
-            "Tracer" -> SportTracerPage()
+            "Tracer" -> SportTracerPage2()
             else -> throw IllegalArgumentException("Unknown page type")
         }
     }
