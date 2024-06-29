@@ -9,6 +9,7 @@ coreKtxVersion = "1.10.1"
 gson = "2.10.1"
 hiltNavigationCompose = "1.2.0"
 jetbrainsKotlinxSerializationJsonVersion = "1.5.1"
+junitJunit = "4.12"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -17,6 +18,8 @@ espressoCore = "3.5.1"
 appcompat = "1.7.0"
 kotlinxCoroutinesAndroid = "1.7.3"
 kotlinxCoroutinesCoreVersion = "1.7.3"
+kotlinxCoroutinesTest = "1.7.3"
+kotlinxCoroutinesTestVersion = "1.6.0"
 ktorClientLogging = "2.3.2"
 ktorSerializationKotlinxJson = "2.3.2"
 ktorClientContentNegotiation = "2.3.2"
@@ -30,12 +33,17 @@ activity = "1.8.0"
 constraintlayout = "2.1.4"
 core = "1.13.1"
 material3Version = "1.2.1"
+mongodbStitchAndroidSdkCoreVersion = "4.7.0"
+mongodbStitchAndroidSdkSync = "4.7.0"
+realmGradlePlugin = "10.10.0"
 uiToolingPreviewAndroid = "1.6.7"
 playServicesMaps = "18.2.0"
 playServicesLocation = "21.3.0"
 uiToolingPreviewVersion = "1.6.8"
 uiVersion = "1.6.8"
 volley = "1.2.1"
+roomCommon = "2.6.1"
+compiler = "3.2.0-alpha11"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -57,7 +65,10 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+junit-v412 = { module = "junit:junit", version.ref = "junitJunit" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+kotlinx-coroutines-test-v160 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTestVersion" }
 maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCio" }
@@ -70,13 +81,18 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
 androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
+mongodb-mongodb-stitch-android-sdk-core = { module = "org.mongodb:mongodb-stitch-android-sdk-core", version.ref = "mongodbStitchAndroidSdkCoreVersion" }
+mongodb-stitch-android-sdk-sync = { module = "org.mongodb:mongodb-stitch-android-sdk-sync", version.ref = "mongodbStitchAndroidSdkSync" }
 org-jetbrains-kotlinx-kotlinx-serialization-json2 = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "jetbrainsKotlinxSerializationJsonVersion" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+realm-gradle-plugin = { module = "io.realm:realm-gradle-plugin", version.ref = "realmGradlePlugin" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterGson" }
 ui = { module = "androidx.compose.ui:ui", version.ref = "uiVersion" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreviewVersion" }
 volley = { module = "com.android.volley:volley", version.ref = "volley" }
+androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
+androidx-compiler = { group = "androidx.databinding", name = "compiler", version.ref = "compiler" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

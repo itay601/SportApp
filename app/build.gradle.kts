@@ -54,6 +54,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview.android)
     implementation(libs.play.services.maps)
     implementation(libs.play.services.location)
+    implementation(libs.junit)
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -133,5 +136,11 @@ dependencies {
     implementation(libs.jetbrains.kotlin.stdlib)
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:")
     implementation(libs.gson)
-    
+
+    testImplementation(libs.kotlinx.coroutines.test)
+    //mongoRealm
+    implementation(libs.realm.gradle.plugin)
+    //implementation(libs.mongodb.mongodb.stitch.android.sdk.core)
+    //implementation(libs.mongodb.stitch.android.sdk.sync)
+
 }

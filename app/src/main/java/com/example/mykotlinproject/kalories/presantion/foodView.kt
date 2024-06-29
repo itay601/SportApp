@@ -3,7 +3,6 @@ package com.example.mykotlinproject.kalories.presantion
 
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +25,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -38,10 +38,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mykotlinproject.kalories.data.FoodNutrition
 import com.example.mykotlinproject.kalories.domain.FetchApi
-
+import kotlinx.coroutines.launch
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,8 +50,13 @@ import com.example.mykotlinproject.kalories.domain.FetchApi
 @Composable
 fun FoodListPage(foodViewModel: FetchApi = viewModel()) {
 
+    //val list2 by
     val yourList by foodViewModel.yourList.observeAsState(initial = emptyList())
-    var foodName by remember { mutableStateOf("") }
+    var foodName by remember { mutableStateOf("1lb hamburger and fries") }
+
+    LaunchedEffect (Unit){
+        foodViewModel.execute(foodName)
+    }
 
     Column(
         modifier = Modifier
@@ -70,18 +76,17 @@ fun FoodListPage(foodViewModel: FetchApi = viewModel()) {
         OutlinedTextField(
             value = foodName,
             onValueChange = { foodName = it },
-            label = { Text("Enter Food Name") },
+            label = { Text("exm : 1lb hamburger and fries") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = {
-                    foodViewModel.fetchFoodApi(foodName)
-                    Log.d("apicall", "worked")
-                    foodViewModel.jsonStringToList()
-                    Log.d("jsontostring", "worked")
-                      },
+                foodViewModel.viewModelScope.launch {
+                    foodViewModel.execute(foodName)
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Fetch Food Info")

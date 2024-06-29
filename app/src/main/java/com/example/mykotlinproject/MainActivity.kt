@@ -39,8 +39,9 @@ import com.example.mykotlinproject.sportEquipment.presentation.EquipmentListPage
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.  onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState)
         var page = mutableStateOf("home") // Changed to mutableStateOf for state management
+
         setContent {
             BasicsCodelabTheme {
                 Scaffold(
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 }
 
