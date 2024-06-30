@@ -43,6 +43,6 @@ class fetchPosts {
 }
 
 fun main(){
-    val l = fetchPosts()
-    l.execute()
+   // val l = fetchPosts()
+   // l.execute()
 }

@@ -1,5 +1,6 @@
 package com.example.mykotlinproject.sportEquipment.presentation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,11 +25,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mykotlinproject.R
 import com.example.mykotlinproject.sportEquipment.data.EquipmentItem
+import io.ktor.http.ContentType
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,11 +41,27 @@ import com.example.mykotlinproject.sportEquipment.data.EquipmentItem
 fun EquipmentListPage() {
     val equipmentList = remember {
         mutableListOf(
-            EquipmentItem("Treadmill", "A device for walking or running while staying in one place."),
-            EquipmentItem("Dumbbells", "A short bar with a weight at each end, used typically in pairs for exercise."),
-            EquipmentItem("Yoga Mat", "A soft mat used during yoga to provide cushioning and support."),
-            EquipmentItem("Bicycle", "A vehicle composed of two wheels held in a frame one behind the other.")
-        )
+            EquipmentItem(R.drawable.dumbells, "Treadmill", "A device for walking or running while staying in one place."),
+            EquipmentItem(R.drawable.treadmill, "Dumbbells", "A short bar with a weight at each end, used typically in pairs for exercise."),
+            EquipmentItem(R.drawable.yoga_mat, "Yoga Mat", "A soft mat used during yoga to provide cushioning and support."),
+            EquipmentItem(R.drawable.bycycle, "Bicycle", "A vehicle composed of two wheels held in a frame one behind the other."),
+//            EquipmentItem("", "Resistance Bands", "Elastic bands used for strength training and physical therapy."),
+//            EquipmentItem("", "Kettlebells", "A cast-iron or cast steel weight used to perform ballistic exercises."),
+//            EquipmentItem("", "Jump Rope", "A rope used in exercise or sport for jumping over as it swings under the feet."),
+//            EquipmentItem("", "Foam Roller", "A cylindrical tool used for self-myofascial release and massage."),
+//            EquipmentItem("", "Medicine Ball", "A weighted ball used for strength training and rehabilitation."),
+//            EquipmentItem("", "Pull-up Bar", "A horizontal bar used for pull-up exercises to strengthen the upper body."),
+//            EquipmentItem("", "Exercise Ball", "A large ball used for various forms of physical exercise and therapy."),
+//            EquipmentItem("", "Rowing Machine", "A machine used to simulate the action of watercraft rowing for exercise."),
+//            EquipmentItem("", "Elliptical Trainer", "A stationary exercise machine used to simulate walking or running."),
+//            EquipmentItem("", "Stability Ball", "A ball used for balance and stability exercises."),
+//            EquipmentItem("", "Battle Ropes", "Heavy ropes used for strength training through wave-like movements."),
+//            EquipmentItem("", "Ab Roller", "A small wheel with handles used to exercise the abdominal muscles."),
+//            EquipmentItem("", "Punching Bag", "A sturdy bag designed to be repeatedly punched for exercise or training."),
+//            EquipmentItem("", "Bench Press", "A weight training exercise that focuses on the pectoral muscles."),
+//            EquipmentItem("", "Speed Ladder", "A piece of equipment used for agility training."),
+//            EquipmentItem("", "Stationary Bike", "A device with pedals, a saddle, and handlebars, used for indoor cycling.")
+            )
     }
 
     Column(
@@ -82,11 +102,13 @@ fun EquipmentCard(equipment: EquipmentItem) {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Filled.FitnessCenter,
-                contentDescription = "Equipment Icon",
-                tint = Color.Blue,
-                modifier = Modifier.size(48.dp)
+
+
+            //the icon need to be Image
+            Image(
+                painter = painterResource(id = equipment.image),
+                contentDescription = equipment.name,
+                modifier = Modifier.size(64.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column {
