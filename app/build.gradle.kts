@@ -139,8 +139,8 @@ dependencies {
 
     testImplementation(libs.kotlinx.coroutines.test)
     //mongoRealm
-    implementation(libs.realm.gradle.plugin)
-    //implementation(libs.mongodb.mongodb.stitch.android.sdk.core)
-    //implementation(libs.mongodb.stitch.android.sdk.sync)
-
+    implementation(libs.mongodb.driver.kotlin.coroutine)
+    implementation(libs.bson.kotlinx)
 }
+
+
