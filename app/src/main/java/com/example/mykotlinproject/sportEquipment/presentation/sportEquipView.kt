@@ -13,11 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -32,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mykotlinproject.R
 import com.example.mykotlinproject.sportEquipment.data.EquipmentItem
-import io.ktor.http.ContentType
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,22 +41,21 @@ fun EquipmentListPage() {
             EquipmentItem(R.drawable.treadmill, "Dumbbells", "A short bar with a weight at each end, used typically in pairs for exercise."),
             EquipmentItem(R.drawable.yoga_mat, "Yoga Mat", "A soft mat used during yoga to provide cushioning and support."),
             EquipmentItem(R.drawable.bycycle, "Bicycle", "A vehicle composed of two wheels held in a frame one behind the other."),
-//            EquipmentItem("", "Resistance Bands", "Elastic bands used for strength training and physical therapy."),
-//            EquipmentItem("", "Kettlebells", "A cast-iron or cast steel weight used to perform ballistic exercises."),
-//            EquipmentItem("", "Jump Rope", "A rope used in exercise or sport for jumping over as it swings under the feet."),
-//            EquipmentItem("", "Foam Roller", "A cylindrical tool used for self-myofascial release and massage."),
-//            EquipmentItem("", "Medicine Ball", "A weighted ball used for strength training and rehabilitation."),
-//            EquipmentItem("", "Pull-up Bar", "A horizontal bar used for pull-up exercises to strengthen the upper body."),
-//            EquipmentItem("", "Exercise Ball", "A large ball used for various forms of physical exercise and therapy."),
-//            EquipmentItem("", "Rowing Machine", "A machine used to simulate the action of watercraft rowing for exercise."),
-//            EquipmentItem("", "Elliptical Trainer", "A stationary exercise machine used to simulate walking or running."),
-//            EquipmentItem("", "Stability Ball", "A ball used for balance and stability exercises."),
-//            EquipmentItem("", "Battle Ropes", "Heavy ropes used for strength training through wave-like movements."),
-//            EquipmentItem("", "Ab Roller", "A small wheel with handles used to exercise the abdominal muscles."),
-//            EquipmentItem("", "Punching Bag", "A sturdy bag designed to be repeatedly punched for exercise or training."),
-//            EquipmentItem("", "Bench Press", "A weight training exercise that focuses on the pectoral muscles."),
-//            EquipmentItem("", "Speed Ladder", "A piece of equipment used for agility training."),
-//            EquipmentItem("", "Stationary Bike", "A device with pedals, a saddle, and handlebars, used for indoor cycling.")
+            EquipmentItem(R.drawable.ResistanceBands, "Resistance Bands", "Elastic bands used for strength training and physical therapy."),
+            EquipmentItem(R.drawable.Kettlebells, "Kettlebells", "A cast-iron or cast steel weight used to perform ballistic exercises."),
+            EquipmentItem(R.drawable.JumpRope, "Jump Rope", "A rope used in exercise or sport for jumping over as it swings under the feet."),
+            EquipmentItem(R.drawable.FoamRoller, "Foam Roller", "A cylindrical tool used for self-myofascial release and massage."),
+            EquipmentItem(R.drawable.MedicineBall, "Medicine Ball", "A weighted ball used for strength training and rehabilitation."),
+            EquipmentItem(R.drawable.PullUpBar, "Pull-up Bar", "A horizontal bar used for pull-up exercises to strengthen the upper body."),
+            EquipmentItem(R.drawable.ExerciseBall, "Exercise Ball", "A large ball used for various forms of physical exercise and therapy."),
+            EquipmentItem(R.drawable.RowingMachine, "Rowing Machine", "A machine used to simulate the action of watercraft rowing for exercise."),
+            EquipmentItem(R.drawable.EllipticalTrainer, "Elliptical Trainer", "A stationary exercise machine used to simulate walking or running."),
+            EquipmentItem(R.drawable.BattleRopes, "Battle Ropes", "Heavy ropes used for strength training through wave-like movements."),
+            EquipmentItem(R.drawable.AbRoller, "Ab Roller", "A small wheel with handles used to exercise the abdominal muscles."),
+            EquipmentItem(R.drawable.PunchingBag, "Punching Bag", "A sturdy bag designed to be repeatedly punched for exercise or training."),
+            EquipmentItem(R.drawable.BenchPress, "Bench Press", "A weight training exercise that focuses on the pectoral muscles."),
+            EquipmentItem(R.drawable.SpeedLadder, "Speed Ladder", "A piece of equipment used for agility training."),
+            EquipmentItem(R.drawable.StationaryBike, "Stationary Bike", "A device with pedals, a saddle, and handlebars, used for indoor cycling.")
             )
     }
 

@@ -137,10 +137,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:")
     implementation(libs.gson)
 
-    testImplementation(libs.kotlinx.coroutines.test)
+
+    implementation("com.google.guava:guava:32.1.2-jre")
+    //testImplementation(libs.kotlinx.coroutines.test)
     //mongoRealm
-    implementation(libs.mongodb.driver.kotlin.coroutine)
-    implementation(libs.bson.kotlinx)
+    //implementation(libs.mongodb.driver.kotlin.coroutine)
+    //implementation(libs.bson.kotlinx)
 }
 
 
