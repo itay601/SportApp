@@ -139,10 +139,10 @@ dependencies {
 
 
     implementation("com.google.guava:guava:32.1.2-jre")
-    //testImplementation(libs.kotlinx.coroutines.test)
+
     //mongoRealm
-    //implementation(libs.mongodb.driver.kotlin.coroutine)
-    //implementation(libs.bson.kotlinx)
+    implementation(libs.mongodb.driver.sync)
+    implementation(libs.slf4j.api)
 }
 
 
