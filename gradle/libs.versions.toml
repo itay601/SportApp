@@ -36,10 +36,12 @@ core = "1.13.1"
 material3Version = "1.2.1"
 mongodbDriverKotlinCoroutine = "5.1.1"
 mongodbDriverSync = "4.9.1"
+mongodbDriverSyncVersion = "4.3.3"
 mongodbStitchAndroidSdkCoreVersion = "4.7.0"
 mongodbStitchAndroidSdkSync = "4.7.0"
 realmGradlePlugin = "10.10.0"
 slf4jApi = "2.0.9"
+slf4jApiVersion = "2.0.7"
 uiToolingPreviewAndroid = "1.6.7"
 playServicesMaps = "18.2.0"
 playServicesLocation = "21.3.0"
@@ -88,6 +90,7 @@ androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "u
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
 mongodb-driver-kotlin-coroutine = { module = "org.mongodb:mongodb-driver-kotlin-coroutine", version.ref = "mongodbDriverKotlinCoroutine" }
 mongodb-driver-sync = { module = "org.mongodb:mongodb-driver-sync", version.ref = "mongodbDriverSync" }
+mongodb-driver-sync-v433 = { module = "org.mongodb:mongodb-driver-sync", version.ref = "mongodbDriverSyncVersion" }
 mongodb-mongodb-stitch-android-sdk-core = { module = "org.mongodb:mongodb-stitch-android-sdk-core", version.ref = "mongodbStitchAndroidSdkCoreVersion" }
 mongodb-stitch-android-sdk-sync = { module = "org.mongodb:mongodb-stitch-android-sdk-sync", version.ref = "mongodbStitchAndroidSdkSync" }
 org-jetbrains-kotlinx-kotlinx-serialization-json2 = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "jetbrainsKotlinxSerializationJsonVersion" }
@@ -96,6 +99,7 @@ play-services-location = { group = "com.google.android.gms", name = "play-servic
 realm-gradle-plugin = { module = "io.realm:realm-gradle-plugin", version.ref = "realmGradlePlugin" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterGson" }
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4jApi" }
+slf4j-api-v207 = { module = "org.slf4j:slf4j-api", version.ref = "slf4jApiVersion" }
 ui = { module = "androidx.compose.ui:ui", version.ref = "uiVersion" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreviewVersion" }
 volley = { module = "com.android.volley:volley", version.ref = "volley" }
