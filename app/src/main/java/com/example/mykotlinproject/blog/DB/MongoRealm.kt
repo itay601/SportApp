@@ -1,7 +1,11 @@
 package com.example.mykotlinproject.blog.DB
 
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.mykotlinproject.blog.data.Post
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase
@@ -17,6 +21,17 @@ const val CONNECTION_STRING_URI_PLACEHOLDER:String = "mongodb+srv://itaymerel121
 
 
 class MongoDBClient(uri: String =CONNECTION_STRING_URI_PLACEHOLDER, dbName: String = "sportBlog") {
+
+    private var list1 = mutableListOf<String>()
+
+    private var Response: String? = null
+    // MutableLiveData for your list
+    private val _yourList = MutableLiveData<List<Post>>()
+    // Exposed as LiveData
+    val yourList: LiveData<List<Post>>
+        get() = _yourList
+
+
 
     private val mongoClient = MongoClients.create(uri)
     private val database: MongoDatabase = mongoClient.getDatabase(dbName)
@@ -84,6 +99,7 @@ class MongoDBClient(uri: String =CONNECTION_STRING_URI_PLACEHOLDER, dbName: Stri
         }
     }
 
+
     fun addComment(postTitle: String, comment: String) {
         val uri = CONNECTION_STRING_URI_PLACEHOLDER // Replace with your MongoDB URI
         val dbName = "sportBlog" // Replace with your database name
@@ -103,6 +119,49 @@ class MongoDBClient(uri: String =CONNECTION_STRING_URI_PLACEHOLDER, dbName: Stri
         println(updatedDocument?.toJson())
         mongoDBClient.close()
     }
+
+    fun printDB() {
+        val uri = CONNECTION_STRING_URI_PLACEHOLDER // Replace with your MongoDB URI
+        val dbName = "sportBlog" // Replace with your database name
+        val collectionName = "subjects" // Replace with your collection name
+
+        val mongoDBClient = MongoDBClient(uri, dbName)
+        val collection = getCollection("subjects")
+
+        val alldata = collection.find()
+        for (doc in alldata) {
+            println(doc.toJson())
+        }
+        mongoDBClient.close()
+    }
+
+
+    fun clickedOnBlogSub(Blog: String) {
+        val uri = CONNECTION_STRING_URI_PLACEHOLDER // Replace with your MongoDB URI
+        val dbName = "sportBlog" // Replace with your database name
+        val collectionName = "subjects" // Replace with your collection name
+
+        val mongoDBClient = MongoDBClient(uri, dbName)
+        val collection = getCollection("subjects")
+
+        // Find the post by title
+        val filter: Bson = eq("title", post)
+        val updatedDocument = collection.find(filter).first()
+        println(updatedDocument?.toJson())
+        mongoDBClient.close()
+        if (updatedDocument != null) {
+            transferData(updatedDocument.toJson())
+        }
+    }
+    private fun transferData(data: String){
+        val gson = Gson()
+        val listType = object : TypeToken<List<Post>>() {}.type
+        this._yourList.postValue(gson.fromJson(this.Response, listType))
+
+        return gson.fromJson(data, listType)
+    }
+
+
     fun close() {
         mongoClient.close()
     }
@@ -113,5 +172,6 @@ fun main(){
     val f = MongoDBClient()
     //f.insertPost()
     //f.deletePost()
-    f.addComment("exercises After Workout","hello")
+    //f.addComment("exercises After Workout","hello")
+    f.printDB()
 }
