@@ -146,9 +146,7 @@ dependencies {
     implementation(libs.slf4j.api)
     implementation("org.slf4j:slf4j-simple:2.0.7")
 
-//check this for mongo
-    //implementation(libs.android.adapters)
-    //implementation(libs.realm.android.library)
+
 }
 
 

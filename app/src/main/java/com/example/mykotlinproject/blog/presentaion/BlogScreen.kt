@@ -22,7 +22,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,6 +36,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.mykotlinproject.blog.DB.MongoDBClient
 
 data class Topic(val title: String, val description: String, val comments: List<Comment>, var likes: Int, var liked: Boolean)
 data class Comment(val username: String, val content: String)
@@ -43,13 +47,20 @@ data class Comment(val username: String, val content: String)
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BlogPage() {
+fun BlogPage(mongo: MongoDBClient = viewModel()) {
+
+    val yourList by mongo.yourList.observeAsState(initial = emptyList())
+
     val topics = remember {
         mutableStateListOf(
             Topic("Running Tips", "Discuss and share your running tips!", listOf(), 0, false),
             Topic("Healthy Eating", "Share your favorite healthy recipes.", listOf(), 0, false),
             Topic("Workout Routines", "Talk about different workout routines.", listOf(), 0, false)
         )
+    }
+
+    LaunchedEffect (Unit){
+        mongo.execute()
     }
 
     Column(
@@ -74,7 +85,7 @@ fun BlogPage() {
 
         LazyColumn {
             items(topics) { topic ->
-                TopicCard(topic) { /* Navigate to Topic Page with topic */ }
+                TopicPage(topic)
             }
         }
     }
