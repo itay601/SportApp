@@ -1,11 +1,11 @@
 package com.example.mykotlinproject.blog.DB
 
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mykotlinproject.blog.data.Post
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase
@@ -13,6 +13,8 @@ import com.mongodb.client.model.Filters.eq
 import com.mongodb.client.model.Updates.push
 import org.bson.Document
 import org.bson.conversions.Bson
+
+
 
 
 const val CONNECTION_STRING_URI_PLACEHOLDER:String = "mongodb+srv://itaymerel1212:ijwU1LoHXvFSMidD@cluster0.lqxvoov.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
@@ -54,7 +56,7 @@ class MongoDBClient(uri: String =CONNECTION_STRING_URI_PLACEHOLDER, dbName: Stri
 
         try {
             val mongoDBClient = MongoDBClient(uri, dbName)
-            val collection = this.getCollection(collectionName)
+            val collection = mongoDBClient.getCollection(collectionName)
             //
             //check if title is unique
             //
@@ -157,6 +159,11 @@ class MongoDBClient(uri: String =CONNECTION_STRING_URI_PLACEHOLDER, dbName: Stri
         val gson = Gson()
         val listType = object : TypeToken<List<Post>>() {}.type
         this._yourList.postValue(gson.fromJson(this.Response, listType))
+        ///////
+        //////
+        //
+        ///
+        //
 
         return gson.fromJson(data, listType)
     }

@@ -2,6 +2,7 @@
 activityCompose = "1.9.0"
 activityComposeVersion = "1.7.0"
 agp = "8.3.2"
+androidAdapters = "4.10.0"
 arrowCore = "1.1.3"
 bsonKotlinx = "5.1.1"
 coilCompose = "2.6.0"
@@ -34,16 +35,18 @@ activity = "1.8.0"
 constraintlayout = "2.1.4"
 core = "1.13.1"
 material3Version = "1.2.1"
+mongodbDriverKotlin = "1.7.2"
 mongodbDriverKotlinCoroutine = "5.1.1"
-mongodbDriverSync = "4.9.1"
-mongodbDriverSyncVersion = "4.3.3"
+mongodbDriverSync = "5.1.1"
+mongodbDriverSyncVersion = "5.1.1"
 mongodbStitchAndroidSdkCoreVersion = "4.7.0"
 mongodbStitchAndroidSdkSync = "4.7.0"
+realmAndroidLibrary = "10.8.0"
 realmGradlePlugin = "10.10.0"
 slf4jApi = "2.0.9"
-slf4jApiVersion = "2.0.7"
-uiToolingPreviewAndroid = "1.6.7"
-playServicesMaps = "18.2.0"
+slf4jApiVersion = "2.0.9"
+uiToolingPreviewAndroid = "1.6.8"
+playServicesMaps = "19.0.0"
 playServicesLocation = "21.3.0"
 uiToolingPreviewVersion = "1.6.8"
 uiVersion = "1.6.8"
@@ -52,6 +55,7 @@ roomCommon = "2.6.1"
 compiler = "3.2.0-alpha11"
 
 [libraries]
+android-adapters = { module = "io.realm:android-adapters", version.ref = "androidAdapters" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 androidx-activity-compose-v170 = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -88,6 +92,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
 androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
+mongodb-driver-kotlin = { module = "org.mongodb:mongodb-driver-kotlin", version.ref = "mongodbDriverKotlin" }
 mongodb-driver-kotlin-coroutine = { module = "org.mongodb:mongodb-driver-kotlin-coroutine", version.ref = "mongodbDriverKotlinCoroutine" }
 mongodb-driver-sync = { module = "org.mongodb:mongodb-driver-sync", version.ref = "mongodbDriverSync" }
 mongodb-driver-sync-v433 = { module = "org.mongodb:mongodb-driver-sync", version.ref = "mongodbDriverSyncVersion" }
@@ -96,6 +101,7 @@ mongodb-stitch-android-sdk-sync = { module = "org.mongodb:mongodb-stitch-android
 org-jetbrains-kotlinx-kotlinx-serialization-json2 = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "jetbrainsKotlinxSerializationJsonVersion" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+realm-android-library = { module = "io.realm:realm-android-library", version.ref = "realmAndroidLibrary" }
 realm-gradle-plugin = { module = "io.realm:realm-gradle-plugin", version.ref = "realmGradlePlugin" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterGson" }
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4jApi" }

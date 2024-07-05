@@ -141,11 +141,14 @@ dependencies {
     implementation("com.google.guava:guava:32.1.2-jre")
 
     //mongoRealm
-    implementation("org.mongodb:mongodb-driver-sync:4.10.2")
-    implementation(libs.bson.kotlinx)
-    implementation("org.slf4j:slf4j-api:2.0.7")
+    //implementation("org.mongodb:mongodb-driver-core:5.1.1")
+    implementation("org.mongodb:mongodb-driver-sync:4.0.1")
+    implementation(libs.slf4j.api)
     implementation("org.slf4j:slf4j-simple:2.0.7")
 
+//check this for mongo
+    //implementation(libs.android.adapters)
+    //implementation(libs.realm.android.library)
 }
 
 
