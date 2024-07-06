@@ -193,10 +193,11 @@ class MongoDBClient(uri: String =CONNECTION_STRING_URI_PLACEHOLDER, dbName: Stri
 
 }
 
-fun main(){
-    val f = MongoDBClient()
-    //f.insertPost()
-    //f.deletePost()
-    //f.addComment("exercises After Workout","hello")
-    f.printDB()
-}
+//fun main(){
+//    val f = MongoDBClient()
+//    //f.insertPost()
+//    //f.deletePost()
+//    //f.addComment("exercises After Workout","hello")
+//    f.printDB()
+////    f.execute()
+//}
