@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "191999851430",
+    "firebase_url": "https://sport-android-app-default-rtdb.firebaseio.com",
+    "project_id": "sport-android-app",
+    "storage_bucket": "sport-android-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191999851430:android:386d4e9b1a9584a071ed67",
+        "android_client_info": {
+          "package_name": "com.example.mykotlinproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAttAyA-xQ-4JLIt8S-5vkg6AkS2YRjDOc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -30,17 +30,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.mykotlinproject.blog.functionality.Database
 import com.example.mykotlinproject.blog.presentaion.BlogPage
 import com.example.mykotlinproject.home.presentaion.HomePage
 import com.example.mykotlinproject.kalories.domain.FetchApi
 import com.example.mykotlinproject.kalories.presantion.FoodListPage
 import com.example.mykotlinproject.sportEquipment.presentation.EquipmentListPage
+import com.google.firebase.FirebaseApp
 
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var page = mutableStateOf("home") // Changed to mutableStateOf for state management
+
+        FirebaseApp.initializeApp(this)
+        val database1 = Database() // Create a single instance of Database
+        database1.testRealtimeDatabaseRequest()
 
         setContent {
             BasicsCodelabTheme {

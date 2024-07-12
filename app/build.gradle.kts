@@ -1,7 +1,10 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0" // this version matches your Kotlin version
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
+    //alias(libs.plugins.google.gms.google.services) // this version matches your Kotlin version
+    id("com.google.gms.google-services") version "4.4.2" apply true
+
 }
 
 android {
@@ -41,6 +44,8 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
     }
+
+
 }
 
 dependencies {
@@ -57,6 +62,9 @@ dependencies {
     implementation(libs.junit)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.compiler)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -140,13 +148,9 @@ dependencies {
 
     implementation("com.google.guava:guava:32.1.2-jre")
 
-    //mongoRealm
-    //implementation("org.mongodb:mongodb-driver-core:5.1.1")
-    implementation("org.mongodb:mongodb-driver-sync:4.0.1")
-    implementation(libs.slf4j.api)
-    implementation("org.slf4j:slf4j-simple:2.0.7")
-
-
+    //firebase DB
+    implementation("com.google.firebase:firebase-storage:20.3.0")
+    implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
+    implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
+    implementation(libs.firebase.analytics.ktx)
 }
-
-
