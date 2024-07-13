@@ -4,7 +4,13 @@ package com.example.mykotlinproject.blog.presentation
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -14,11 +20,13 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +40,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mykotlinproject.blog.data.Post
 import com.example.mykotlinproject.blog.functionality.Database
+import kotlinx.coroutines.launch
 
 @SuppressLint("CoroutineCreationDuringComposition", "RememberReturnType")
 @Preview
@@ -42,13 +51,14 @@ fun BlogPage() {
     NavHost(navController = navController, startDestination = "blog_list") {
         composable("blog_list") { BlogList(navController) }
         composable("add_post") { AddPostPage(navController) }
+
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BlogList(navController: NavHostController) {
-    val posts = remember {
+    val posts1 = remember {
         mutableStateListOf(
             Post(
                 "2024-07-13",
@@ -73,7 +83,17 @@ fun BlogList(navController: NavHostController) {
             )
         )
     }
+    val posts = remember { mutableStateListOf<Post>() }
+    val coroutineScope = rememberCoroutineScope()
 
+    LaunchedEffect(Unit) {
+        val database = Database()
+        coroutineScope.launch {
+            val fetchedPosts = database.fetchPostsFromFirebase()
+            posts.clear()
+            posts.addAll(fetchedPosts)
+        }
+    }
     var selectedPost by remember { mutableStateOf<Post?>(null) }
 
     Column(
@@ -103,6 +123,12 @@ fun BlogList(navController: NavHostController) {
                         selectedPost = post
                     }
                 }
+                items(posts1) { post ->
+                    TopicCard(post = post) {
+                        selectedPost = post
+                    }
+                }
+
             }
         } else {
             PostDetails(post = selectedPost!!)
@@ -178,12 +204,15 @@ fun CommentCard(comment: String) {
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddPostPage(navController: NavHostController) {
     val title = remember { mutableStateOf("") }
     val content = remember { mutableStateOf("") }
     val comments = remember { mutableStateOf("") }
+
+    val db = Database()
 
     Column(
         modifier = Modifier
@@ -226,14 +255,13 @@ fun AddPostPage(navController: NavHostController) {
 
         Button(onClick = {
             val post = Post(
-                date = "2024-07-13",  // You can set the current date dynamically if needed
-                time = "10:00 AM",  // You can set the current time dynamically if needed
+                date = db.getCurrentDate(),  // You can set the current date dynamically if needed
+                time = db.getCurrentTime(),  // You can set the current time dynamically if needed
                 title = title.value,
                 content = content.value,
                 comments = comments.value.split(",").map { it.trim() }
             )
-            val d = Database()
-            d.addPostToFirebase(post) {
+                db.finalAddPost(post) {
                 navController.popBackStack()
             }
         }) {

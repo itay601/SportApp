@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.mykotlinproject.blog.data.Post
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -25,7 +26,7 @@ class Database { // Class name changed for clarity
             }
     }
 
-    fun finalAddPost(post:Post){
+    fun finalAddPost(post: Post, function: () -> Boolean) {
         addPost(post,
             onSuccess = { documentReference ->
                 Log.d("FirestoreHelper", "DocumentSnapshot added with ID: ${documentReference.id}")
@@ -51,32 +52,33 @@ class Database { // Class name changed for clarity
             }
     }
 
-    fun createPost(title: String, content: String, comments: List<String>, onSuccess: (DocumentReference) -> Unit, onFailure: (Exception) -> Unit) {
-        val currentDate = getCurrentDate()
-        val currentTime = getCurrentTime()
 
-        val post = Post(
-            date = currentDate,
-            time = currentTime,
-            title = title,
-            content = content,
-            comments = comments
-        )
-
-        addPost(post, onSuccess, onFailure)
-    }
-
-    private fun getCurrentDate(): String {
+    fun getCurrentDate(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return dateFormat.format(Date())
     }
 
-    private fun getCurrentTime(): String {
+    fun getCurrentTime(): String {
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         return timeFormat.format(Date())
     }
 
-
+    suspend fun fetchPostsFromFirebase(): List<Post> {
+        return try {
+            val snapshot = db.collection("posts").get().await()
+            snapshot.documents.map { document ->
+                Post(
+                    date = document.getString("date") ?: "",
+                    time = document.getString("time") ?: "",
+                    title = document.getString("title") ?: "",
+                    content = document.getString("content") ?: "",
+                    comments = document.get("comments") as List<String>? ?: emptyList()
+                )
+            }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
 }
 
 fun main() {
