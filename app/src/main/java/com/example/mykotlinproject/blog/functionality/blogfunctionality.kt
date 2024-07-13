@@ -12,6 +12,19 @@ import java.util.Locale
 class Database { // Class name changed for clarity
 
     private val db = FirebaseFirestore.getInstance()
+
+    fun addPostToFirebase(post: Post, onSuccess: () -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("posts")
+            .add(post)
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener { e ->
+                // Handle error
+            }
+    }
+
     fun finalAddPost(post:Post){
         addPost(post,
             onSuccess = { documentReference ->
