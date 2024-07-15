@@ -58,31 +58,7 @@ fun BlogPage() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BlogList(navController: NavHostController) {
-    val posts1 = remember {
-        mutableStateListOf(
-            Post(
-                "2024-07-13",
-                "10:00 AM",
-                "Running Tips",
-                "Discuss and share your running tips!",
-                listOf("Great tips!", "Very helpful!")
-            ),
-            Post(
-                "2024-07-14",
-                "11:00 AM",
-                "Healthy Eating",
-                "Share your favorite healthy recipes.",
-                listOf("Love this!", "Yummy!")
-            ),
-            Post(
-                "2024-07-15",
-                "12:00 PM",
-                "Workout Routines",
-                "Talk about different workout routines.",
-                listOf("Awesome routines!", "Thanks for sharing!")
-            )
-        )
-    }
+
     val posts = remember { mutableStateListOf<Post>() }
     val coroutineScope = rememberCoroutineScope()
 
@@ -123,12 +99,6 @@ fun BlogList(navController: NavHostController) {
                         selectedPost = post
                     }
                 }
-                items(posts1) { post ->
-                    TopicCard(post = post) {
-                        selectedPost = post
-                    }
-                }
-
             }
         } else {
             PostDetails(post = selectedPost!!)
@@ -266,6 +236,9 @@ fun AddPostPage(navController: NavHostController) {
             }
         }) {
             Text(text = "Add Post")
+        }
+        Button(onClick = { navController.navigate("blog_list") }) {
+            Text(text = "Return To Blog")
         }
     }
 }
