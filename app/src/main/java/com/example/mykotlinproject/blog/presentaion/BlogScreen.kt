@@ -16,7 +16,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -40,6 +39,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mykotlinproject.blog.data.Post
 import com.example.mykotlinproject.blog.functionality.Database
+import com.example.mykotlinproject.blog.presentaion.AddPostPage
 import kotlinx.coroutines.launch
 
 @SuppressLint("CoroutineCreationDuringComposition", "RememberReturnType")
@@ -106,6 +106,8 @@ fun BlogList(navController: NavHostController) {
     }
 }
 
+
+
 @Composable
 fun TopicCard(post: Post, onClick: () -> Unit) {
     Card(
@@ -128,6 +130,8 @@ fun TopicCard(post: Post, onClick: () -> Unit) {
         }
     }
 }
+
+
 
 @Composable
 fun PostDetails(post: Post) {
@@ -153,6 +157,9 @@ fun PostDetails(post: Post) {
     }
 }
 
+
+
+
 @Composable
 fun CommentCard(comment: String) {
     Card(
@@ -174,71 +181,3 @@ fun CommentCard(comment: String) {
     }
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun AddPostPage(navController: NavHostController) {
-    val title = remember { mutableStateOf("") }
-    val content = remember { mutableStateOf("") }
-    val comments = remember { mutableStateOf("") }
-
-    val db = Database()
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF5F5F5))
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TopAppBar(
-            title = { Text(text = "Add New Post") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(color = 0xFF7E2222))
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = title.value,
-            onValueChange = { title.value = it },
-            label = { Text(text = "Title") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = content.value,
-            onValueChange = { content.value = it },
-            label = { Text(text = "Content") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = comments.value,
-            onValueChange = { comments.value = it },
-            label = { Text(text = "Comments (comma separated)") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(onClick = {
-            val post = Post(
-                date = db.getCurrentDate(),  // You can set the current date dynamically if needed
-                time = db.getCurrentTime(),  // You can set the current time dynamically if needed
-                title = title.value,
-                content = content.value,
-                comments = comments.value.split(",").map { it.trim() }
-            )
-                db.finalAddPost(post) {
-                navController.popBackStack()
-            }
-        }) {
-            Text(text = "Add Post")
-        }
-        Button(onClick = { navController.navigate("blog_list") }) {
-            Text(text = "Return To Blog")
-        }
-    }
-}

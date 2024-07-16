@@ -3,6 +3,7 @@ package com.example.mykotlinproject.blog.functionality
 import android.util.Log
 import com.example.mykotlinproject.blog.data.Post
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
@@ -10,23 +11,13 @@ import java.util.Date
 import java.util.Locale
 
 
-class Database { // Class name changed for clarity
+class Database : DatabaseInterface{ // Class name changed for clarity
 
     private val db = FirebaseFirestore.getInstance()
 
-    fun addPostToFirebase(post: Post, onSuccess: () -> Unit) {
-        val db = FirebaseFirestore.getInstance()
-        db.collection("posts")
-            .add(post)
-            .addOnSuccessListener {
-                onSuccess()
-            }
-            .addOnFailureListener { e ->
-                // Handle error
-            }
-    }
 
-    fun finalAddPost(post: Post, function: () -> Boolean) {
+
+    override fun finalAddPost(post: Post, function: () -> Boolean) {
         addPost(post,
             onSuccess = { documentReference ->
                 Log.d("FirestoreHelper", "DocumentSnapshot added with ID: ${documentReference.id}")
@@ -37,7 +28,7 @@ class Database { // Class name changed for clarity
         )
     }
 
-    fun addPost(
+    override fun addPost(
         post: Post,
         onSuccess: (DocumentReference) -> Unit,
         onFailure: (Exception) -> Unit
@@ -53,17 +44,17 @@ class Database { // Class name changed for clarity
     }
 
 
-    fun getCurrentDate(): String {
+    override fun getCurrentDate(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return dateFormat.format(Date())
     }
 
-    fun getCurrentTime(): String {
+    override fun getCurrentTime(): String {
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         return timeFormat.format(Date())
     }
 
-    suspend fun fetchPostsFromFirebase(): List<Post> {
+    override suspend fun fetchPostsFromFirebase(): List<Post> {
         return try {
             val snapshot = db.collection("posts").get().await()
             snapshot.documents.map { document ->
@@ -79,8 +70,18 @@ class Database { // Class name changed for clarity
             emptyList()
         }
     }
+    fun addCommentToPost(postId: String, comment: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+        val postRef = db.collection("posts").document(postId)
+        postRef.update("comments", FieldValue.arrayUnion(comment))
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
+            }
+    }
+
+
+
 }
 
-fun main() {
-
-}
