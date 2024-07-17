@@ -18,4 +18,5 @@ interface DatabaseInterface {
     fun getCurrentTime(): String
 
     suspend fun fetchPostsFromFirebase(): List<Post>
+    fun updatePostInFirebase(updatedPost: Post, function: () -> Unit)
 }

@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -62,6 +63,8 @@ fun BlogList(navController: NavHostController) {
     val posts = remember { mutableStateListOf<Post>() }
     val coroutineScope = rememberCoroutineScope()
 
+    val comments = remember { mutableStateOf("") }
+    val db = Database()
     LaunchedEffect(Unit) {
         val database = Database()
         coroutineScope.launch {
@@ -87,12 +90,11 @@ fun BlogList(navController: NavHostController) {
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = { navController.navigate("add_post") }) {
-            Text(text = "Create New Topic")
-        }
-        Spacer(modifier = Modifier.height(16.dp))
 
         if (selectedPost == null) {
+            Button(onClick = { navController.navigate("add_post") }) {
+                Text(text = "Create New Topic")
+            }
             LazyColumn {
                 items(posts) { post ->
                     TopicCard(post = post) {
@@ -101,7 +103,41 @@ fun BlogList(navController: NavHostController) {
                 }
             }
         } else {
+            Button(onClick = { navController.navigate("blog_list") }) {
+                Text(text = "Return To Blog")
+            }
             PostDetails(post = selectedPost!!)
+
+            //////////////////////////////////////try add comment
+            OutlinedTextField(
+                value = comments.value,
+                onValueChange = { comments.value = it },
+                label = { Text(text = "Comments") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(onClick = {
+                val updatedComments = selectedPost?.comments?.toMutableList()?.apply {
+                    add(comments.value)
+                }
+                val updatedPost = selectedPost?.copy(comments = updatedComments ?: listOf())
+
+                if (updatedPost != null) {
+                    db.updatePostInFirebase(updatedPost) {
+                        // Refresh the posts list after updating
+                        coroutineScope.launch {
+                            val fetchedPosts = db.fetchPostsFromFirebase()
+                            posts.clear()
+                            posts.addAll(fetchedPosts)
+                        }
+                        selectedPost = updatedPost // Update the selected post
+                        comments.value = "" // Clear the input field
+                    }
+                }
+            }) {
+                Text(text = "Add Comment")
+            }
         }
     }
 }

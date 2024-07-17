@@ -3,7 +3,6 @@ package com.example.mykotlinproject.blog.functionality
 import android.util.Log
 import com.example.mykotlinproject.blog.data.Post
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
@@ -11,10 +10,9 @@ import java.util.Date
 import java.util.Locale
 
 
-class Database : DatabaseInterface{ // Class name changed for clarity
+class Database : DatabaseInterface { // Class name changed for clarity
 
     private val db = FirebaseFirestore.getInstance()
-
 
 
     override fun finalAddPost(post: Post, function: () -> Boolean) {
@@ -70,18 +68,16 @@ class Database : DatabaseInterface{ // Class name changed for clarity
             emptyList()
         }
     }
-    fun addCommentToPost(postId: String, comment: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-        val postRef = db.collection("posts").document(postId)
-        postRef.update("comments", FieldValue.arrayUnion(comment))
+    override fun updatePostInFirebase(updatedPost: Post, function: () -> Unit){
+        db.collection("posts").document(updatedPost.title)
+            .set(updatedPost)
             .addOnSuccessListener {
-                onSuccess()
+                Log.d("FirestoreHelper", "DocumentSnapshot successfully updated!")
+                function()
             }
-            .addOnFailureListener { exception ->
-                onFailure(exception)
+            .addOnFailureListener { e ->
+                Log.w("FirestoreHelper", "Error updating document", e)
             }
     }
-
-
-
 }
 
