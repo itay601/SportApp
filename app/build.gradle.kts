@@ -73,17 +73,9 @@ dependencies {
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
-    // Choose one of the following:
-    // Material Design 3
-    //noinspection UseTomlInstead
+
     implementation("androidx.compose.material3:material3")
-    // or Material Design 2
-    // implementation("androidx.compose.material:material")
-    // or skip Material Design and build directly on top of foundational components
-    // implementation("androidx.compose.foundation:foundation")
-    // or only import the main APIs for the underlying toolkit systems,
-    // such as input and measurement/layout
-    //noinspection UseTomlInstead
+
     implementation("androidx.compose.ui:ui")
 
     // Android Studio Preview support
@@ -98,9 +90,6 @@ dependencies {
     //noinspection UseTomlInstead
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    // Optional - Included automatically by material, only add when you need
-    // the icons but not the material library (e.g. when using Material3 or a
-    // custom design system based on Foundation)
     //noinspection UseTomlInstead
     implementation("androidx.compose.material:material-icons-core")
     // Optional - Add full set of material icons
@@ -153,4 +142,14 @@ dependencies {
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
     implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
     implementation(libs.firebase.analytics.ktx)
+
+
+    //tsets
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test.junit)
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    // For coroutine testing
+    testImplementation(libs.kotlinx.coroutines.test.v152)
+    testImplementation(libs.androidx.core.testing)
+
 }

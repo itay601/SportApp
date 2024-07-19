@@ -1,0 +1,48 @@
+### com.example.mykotlinproject.blog.functionality
+
+**Interface: DatabaseInterface**
+	**Class : blogfunctionality
+
+- finalAddPost(post: Post, function: () -> Boolean)
+  Adds a post to the database and calls the given function to check for success or failure.
+
+- addPost(post: Post, onSuccess: (DocumentReference) -> Unit, onFailure: (Exception) -> Unit)
+  Adds a post to the database and calls the appropriate function upon success or failure, passing the resulting document reference or exception.
+
+- getCurrentDate(): String
+  Retrieves the current date as a String.
+
+- getCurrentTime(): String
+  Retrieves the current time as a String.
+
+- suspend fun fetchPostsFromFirebase(): List<Post>
+  Suspends the coroutine and fetches the list of posts from Firebase.
+
+- updatePostInFirebase(updatedPost: Post, function: () -> Unit)
+  Updates an existing post in the Firebase database and calls the given function upon completion.
+
+### com.example.mykotlinproject.kalories.domain
+
+**Class: FetchApi**
+
+- YOUR_API_KEY
+  A constant holding the API key for accessing the nutrition API.
+
+- Response
+  Holds the response string from the API call.
+
+- _yourList
+  A MutableLiveData list of FoodNutrition objects to hold the fetched data.
+
+- yourList
+  A LiveData list of FoodNutrition objects exposed to observers.
+
+- fetchFoodApi(query_: String = "1lb hamburger and fries"): String
+  Fetches food nutrition data from an API based on the provided query and returns the response as a String.
+  It retries up to 3 times in case of failure.
+
+- jsonStringToList(): List<FoodNutrition>
+  Converts the JSON response string to a list of FoodNutrition objects and posts it to _yourList.
+
+- execute(query: String = "1lb hamburger and fries")
+  Executes the API fetch and JSON conversion in a separate thread using a Callable and an ExecutorService.

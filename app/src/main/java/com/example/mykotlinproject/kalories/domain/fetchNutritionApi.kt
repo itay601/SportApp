@@ -25,7 +25,7 @@ open class FetchApi : ViewModel() {
 
 
 
-    fun fetchFoodApi(query_: String = "1lb hamburger and fries") :String {
+    open fun fetchFoodApi(query_: String = "1lb hamburger and fries") :String {
         val query = query_
         val apiUrl = "https://api.api-ninjas.com/v1/nutrition?query=${
             query.replace(

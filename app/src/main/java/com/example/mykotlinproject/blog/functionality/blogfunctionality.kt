@@ -10,7 +10,7 @@ import java.util.Date
 import java.util.Locale
 
 
-class Database : DatabaseInterface { // Class name changed for clarity
+open class Database : DatabaseInterface { // Class name changed for clarity
 
     private val db = FirebaseFirestore.getInstance()
 

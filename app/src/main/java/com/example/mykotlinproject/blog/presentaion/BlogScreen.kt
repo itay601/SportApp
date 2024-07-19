@@ -106,7 +106,7 @@ fun BlogList(navController: NavHostController) {
             Button(onClick = { navController.navigate("blog_list") }) {
                 Text(text = "Return To Blog")
             }
-            PostDetails(post = selectedPost!!)
+            Spacer(modifier = Modifier.height(20.dp))
 
             //////////////////////////////////////try add comment
             OutlinedTextField(
@@ -138,6 +138,7 @@ fun BlogList(navController: NavHostController) {
             }) {
                 Text(text = "Add Comment")
             }
+            PostDetails(post = selectedPost!!)
         }
     }
 }

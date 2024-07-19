@@ -8,6 +8,7 @@ bsonKotlinx = "5.1.1"
 coilCompose = "2.6.0"
 converterGson = "2.9.0"
 coreKtxVersion = "1.10.1"
+coreTesting = "2.2.0"
 firebaseAnalytics = "22.0.2"
 firebaseAuth = "23.0.0"
 firebaseBom = "33.1.1"
@@ -15,6 +16,7 @@ firebaseDatabaseKtx = "21.0.0"
 googleServices = "4.4.2"
 gson = "2.10.1"
 hiltNavigationCompose = "1.2.0"
+jetbrainsKotlinxCoroutinesTest = "1.5.2"
 jetbrainsKotlinxSerializationJsonVersion = "1.5.1"
 junitJunit = "4.12"
 kotlin = "2.0.0"
@@ -23,6 +25,8 @@ junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 appcompat = "1.7.0"
+kotlinTestJunit = "1.8.22"
+kotlinTestJunitVersion = "1.5.31"
 kotlinxCoroutinesAndroid = "1.7.3"
 kotlinxCoroutinesCoreVersion = "1.7.3"
 kotlinxCoroutinesTest = "1.7.3"
@@ -40,6 +44,7 @@ activity = "1.8.0"
 constraintlayout = "2.1.4"
 core = "1.13.1"
 material3Version = "1.2.1"
+mockitoCore = "3.11.2"
 mongodbDriverKotlin = "1.7.2"
 mongodbDriverKotlinCoroutine = "5.1.1"
 mongodbDriverSync = "5.1.1"
@@ -69,6 +74,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-activity-compose-v170 = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-ktx-v1101 = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-hilt-navigation-fragment = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "hiltNavigationCompose" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
@@ -94,8 +100,11 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 junit-v412 = { module = "junit:junit", version.ref = "junitJunit" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlinTestJunit" }
+kotlin-test-junit-v1531 = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlinTestJunitVersion" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+kotlinx-coroutines-test-v152 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "jetbrainsKotlinxCoroutinesTest" }
 kotlinx-coroutines-test-v160 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTestVersion" }
 maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
@@ -109,6 +118,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
 androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 mongodb-driver-kotlin = { module = "org.mongodb:mongodb-driver-kotlin", version.ref = "mongodbDriverKotlin" }
 mongodb-driver-kotlin-coroutine = { module = "org.mongodb:mongodb-driver-kotlin-coroutine", version.ref = "mongodbDriverKotlinCoroutine" }
 mongodb-driver-kotlin-sync = { module = "org.mongodb:mongodb-driver-kotlin-sync", version.ref = "bsonKotlinx" }
