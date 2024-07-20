@@ -151,5 +151,5 @@ dependencies {
     // For coroutine testing
     testImplementation(libs.kotlinx.coroutines.test.v152)
     testImplementation(libs.androidx.core.testing)
-
+    testImplementation("org.robolectric:robolectric:4.8")
 }
