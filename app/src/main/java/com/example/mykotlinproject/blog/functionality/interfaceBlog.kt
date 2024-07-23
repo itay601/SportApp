@@ -5,7 +5,7 @@ import com.google.firebase.firestore.DocumentReference
 
 interface DatabaseInterface {
 
-    fun finalAddPost(post: Post, function: () -> Boolean)
+    abstract fun finalAddPost(post: Post, function: () -> Boolean)
 
     fun addPost(
         post: Post,
@@ -19,4 +19,5 @@ interface DatabaseInterface {
 
     suspend fun fetchPostsFromFirebase(): List<Post>
     fun updatePostInFirebase(updatedPost: Post, function: () -> Unit)
+
 }
