@@ -1,5 +1,6 @@
 package com.example.mykotlinproject.home.presentaion
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.DirectionsRun
@@ -20,6 +23,7 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -27,6 +31,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,11 +43,31 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.mykotlinproject.home.domain.FetchApi2
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = false)
+
+@SuppressLint("CoroutineCreationDuringComposition", "RememberReturnType")
+@Preview
 @Composable
 fun HomePage() {
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination = "home_page") {
+        composable("home_page") { Homepage(navController) }
+        composable("exercise") { ExerciseListScreen(navController) }
+      //  composable("challenges") { ActionButtonChallenge(navController) }
+
+
+    }
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Homepage(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -80,7 +107,7 @@ fun HomePage() {
         ) {
             ActionButton(icon = Icons.Filled.FitnessCenter, text = "Workouts")
             ActionButton(icon = Icons.AutoMirrored.Filled.DirectionsRun, text = "Running")
-            ActionButtonChallenge(icon = Icons.Filled.Star, text = "Challenges")
+            ActionButtonChallenge(navController,icon = Icons.Filled.Star, text = "Challenges")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -108,12 +135,12 @@ fun ProfileImage() {
 }
 
 @Composable
-fun ActionButtonChallenge(icon: ImageVector, text: String) {
+fun ActionButtonChallenge(navController: NavHostController,icon: ImageVector, text: String) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(8.dp)
-            .clickable { /* Handle click */ }
+            .clickable { navController.navigate("exercise") }
     ) {
         Icon(
             icon,
@@ -128,10 +155,26 @@ fun ActionButtonChallenge(icon: ImageVector, text: String) {
         Text(text = text, fontSize = 14.sp, color = Color.Gray)
     }
 }
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun Challenges() {
+fun ExerciseListScreen(navController: NavHostController,foodViewModel: FetchApi2 = viewModel()) {
+    val exercises by foodViewModel.exerciseList.observeAsState(emptyList())
 
+    LaunchedEffect(Unit) {
+        foodViewModel.execute()
+    }
+    Button(onClick = { navController.navigate("exercise") }) {
+        Text(text = "Return To Home Screen")
+    }
+
+    LazyColumn {
+        items(exercises) { exercise ->
+            Text(text = exercise.name)
+        }
+    }
 }
+
+
 @Composable
 fun ActionButton(icon: ImageVector, text: String) {
     Column(
@@ -153,6 +196,10 @@ fun ActionButton(icon: ImageVector, text: String) {
         Text(text = text, fontSize = 14.sp, color = Color.Gray)
     }
 }
+
+
+
+
 
 @Composable
 fun ActivityList() {
