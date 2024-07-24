@@ -80,7 +80,7 @@ fun HomePage() {
         ) {
             ActionButton(icon = Icons.Filled.FitnessCenter, text = "Workouts")
             ActionButton(icon = Icons.AutoMirrored.Filled.DirectionsRun, text = "Running")
-            ActionButton(icon = Icons.Filled.Star, text = "Challenges")
+            ActionButtonChallenge(icon = Icons.Filled.Star, text = "Challenges")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -107,6 +107,31 @@ fun ProfileImage() {
     )
 }
 
+@Composable
+fun ActionButtonChallenge(icon: ImageVector, text: String) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(8.dp)
+            .clickable { /* Handle click */ }
+    ) {
+        Icon(
+            icon,
+            contentDescription = text,
+            modifier = Modifier
+                .size(48.dp)
+                .background(color = Color.Magenta, shape = CircleShape)
+                .padding(12.dp),
+            tint = Color.White
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(text = text, fontSize = 14.sp, color = Color.Gray)
+    }
+}
+@Composable
+fun Challenges() {
+
+}
 @Composable
 fun ActionButton(icon: ImageVector, text: String) {
     Column(
