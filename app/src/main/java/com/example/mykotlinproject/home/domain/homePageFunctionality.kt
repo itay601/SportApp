@@ -2,10 +2,11 @@ package com.example.mykotlinproject.home.domain
 
 
 
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.android.tools.build.jetifier.core.utils.Log
 import com.example.mykotlinproject.home.data.Exercise
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -15,24 +16,20 @@ import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 
 
-/* curl -X GET https://wger.de/api/v2/exercise/ \
-     -H 'Authorization: Token 39b15b9447ff2834f326355b8d16cf030a4f571a' */
 
-
-
-//val json1
 
 open class FetchApi2 : ViewModel() {
 
-    private val YOUR_API_KEY = "39b15b9447ff2834f326355b8d16cf030a4f571a"
+    private val YOUR_API_KEY = "qiYla7B0GBqPSrhi5vV9Vg==u8PHD6wfrKrM8Vzc"
 
     private var response: String? = null
     private val _exerciseList = MutableLiveData<List<Exercise>>()
     val exerciseList: LiveData<List<Exercise>>
         get() = _exerciseList
 
-    open fun fetchExerciseApi(): String {
-        val apiUrl = "https://wger.de/api/v2/exercise/"
+    open fun fetchExerciseApi(query:String = "biceps"): String {
+        val apiUrl = "https://api.api-ninjas.com/v1/exercises?muscle=${query}"
+        println(apiUrl)
         Log.d("API_URL", apiUrl)
 
         val maxRetries = 3
@@ -46,12 +43,13 @@ open class FetchApi2 : ViewModel() {
                 connection = url.openConnection() as HttpURLConnection
 
                 connection.requestMethod = "GET"
-                connection.setRequestProperty("Authorization", "Token $YOUR_API_KEY")
+                connection.setRequestProperty("X-Api-Key", YOUR_API_KEY)
 
                 val responseCode = connection.responseCode
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     val response = connection.inputStream.bufferedReader().use { it.readText() }
                     this.response = response
+                    println(response)
                     Log.d("API_Response", this.response ?: "")
                     success = true
                     return response
@@ -89,8 +87,9 @@ open class FetchApi2 : ViewModel() {
             try {
                 this._exerciseList.postValue(gson.fromJson(this.response, listType))
             } catch (e: Exception) {
-                Log.e("API_ParsingError", "Error: $e")
+                println("err: $e")
             }
+            println(this.exerciseList)
             return gson.fromJson(this.response, listType)
         } else {
             _exerciseList.value = emptyList()
@@ -101,7 +100,9 @@ open class FetchApi2 : ViewModel() {
     fun execute() {
         val callable = Callable {
             fetchExerciseApi()
-            jsonStringToList()
+            val k = jsonStringToList()
+            println(k)
+            return@Callable k
         }
 
         val executorService = Executors.newSingleThreadExecutor()
@@ -116,5 +117,6 @@ open class FetchApi2 : ViewModel() {
         }
     }
 }
+
 
 

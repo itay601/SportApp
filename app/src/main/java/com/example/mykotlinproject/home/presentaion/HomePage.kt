@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -48,6 +49,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.mykotlinproject.home.data.Exercise
 import com.example.mykotlinproject.home.domain.FetchApi2
 
 
@@ -163,16 +165,44 @@ fun ExerciseListScreen(navController: NavHostController,foodViewModel: FetchApi2
     LaunchedEffect(Unit) {
         foodViewModel.execute()
     }
-    Button(onClick = { navController.navigate("exercise") }) {
-        Text(text = "Return To Home Screen")
-    }
 
-    LazyColumn {
-        items(exercises) { exercise ->
-            Text(text = exercise.name)
+    SpaceHight()
+
+    Column {
+        Button(onClick = { navController.navigate("home_page") }) {
+            Text(text = "Return To Home Screen")
+        }
+
+        LazyColumn {
+            items(exercises) { exercise ->
+                ExerciseItem(exercise)
+            }
         }
     }
+
 }
+
+
+@Composable
+fun ExerciseItem(exercise: Exercise) {
+    Column(modifier = Modifier.padding(8.dp)) {
+        Text(text = "Name: ${exercise.name}", fontWeight = FontWeight.Bold)
+        Text(text = "Type: ${exercise.type}")
+        Text(text = "Muscle: ${exercise.muscle}")
+        Text(text = "Equipment: ${exercise.equipment}")
+        Text(text = "Difficulty: ${exercise.difficulty}")
+        Text(text = "Instructions: ${exercise.instructions}")
+        Spacer(modifier = Modifier.height(4.dp))
+        Divider()
+    }
+}
+
+
+
+
+
+
+
 
 
 @Composable

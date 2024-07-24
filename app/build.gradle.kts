@@ -152,4 +152,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test.v152)
     testImplementation(libs.androidx.core.testing)
     testImplementation("org.robolectric:robolectric:4.8")
+
+    implementation("org.jsoup:jsoup:1.14.3")
+
 }
