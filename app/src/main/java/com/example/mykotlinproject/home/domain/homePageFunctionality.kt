@@ -97,9 +97,9 @@ open class FetchApi2 : ViewModel() {
         }
     }
 
-    fun execute() {
+    fun execute(query:String = "biceps") {
         val callable = Callable {
-            fetchExerciseApi()
+            fetchExerciseApi(query)
             val k = jsonStringToList()
             println(k)
             return@Callable k
