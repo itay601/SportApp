@@ -45,8 +45,6 @@ class MainActivity : AppCompatActivity() {
         var page = mutableStateOf("home") // Changed to mutableStateOf for state management
 
         FirebaseApp.initializeApp(this)
-        //val database1 = Database() // Create a single instance of Database
-        //database1.testRealtimeDatabaseRequest()
 
         setContent {
             BasicsCodelabTheme {
@@ -64,6 +62,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
+
+
+
 
 
 

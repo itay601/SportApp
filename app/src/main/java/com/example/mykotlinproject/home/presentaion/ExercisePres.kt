@@ -120,7 +120,7 @@ fun ExerciseListScreen(navController: NavHostController, foodViewModel: FetchApi
 @Composable
 fun ExerciseListScreen2(navController: NavHostController, foodViewModel: FetchApi2 = viewModel()) {
     val exercises by foodViewModel.exerciseList.observeAsState(emptyList())
-    var selectedMuscle by remember { mutableStateOf("biceps") }
+    var selectedMuscle by remember { mutableStateOf("Mucsle") }
 
     var expanded by remember { mutableStateOf(false) }
     val muscles  = listOf("biceps", "triceps", "shoulders", "chest", "quadriceps","hamstrings",
